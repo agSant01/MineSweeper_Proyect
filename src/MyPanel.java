@@ -11,15 +11,15 @@ public class MyPanel extends JPanel {
 	private static final int GRID_X = 25;
 	private static final int GRID_Y = 25;
 	private static final int INNER_CELL_SIZE = 29;
-	private static final int TOTAL_COLUMNS = 10;
-	private static final int TOTAL_ROWS = 10;   
+	private static final int TOTAL_COLUMNS = 9;
+	private static final int TOTAL_ROWS = 9;   
 
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
-	public int Mines[][] = new int[10][10];
+	public int Mines[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 		
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		
@@ -44,16 +44,10 @@ public class MyPanel extends JPanel {
 		//Determines which cells will have the mines
 		Random rn = new Random();
 
-		int maxPossiblilities = rn.nextInt(60 + 1); //Maximum Possible chances of having mines
-		int counter = 0; //Counts maxPossiblities inside loop
-		
-		for(int i = 0; i < 10; i++){
-			for (int j = 0; j < 10; j++){
-				if (counter < maxPossiblilities){
-					int TF = rn.nextInt(1 + 1);
-						Mines[i][j] = TF;					
-				}
-				
+		for(int i = 0; i < TOTAL_COLUMNS; i++){
+			for (int j = 0; j < TOTAL_COLUMNS; j++){			
+				int TF = rn.nextInt(2);
+				Mines[i][j] = TF;
 			}
 		}
 	}
@@ -71,11 +65,11 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.GRAY);
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid minus the bottom row (which has only one cell)
-		//By default, the grid will be 10x10 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
+		//By default, the grid will be 9x9 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
 		g.setColor(Color.BLACK);
 		for (int y = 0; y <= TOTAL_ROWS; y++) {
 			g.drawLine(x1 + GRID_X, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)), x1 + GRID_X + ((INNER_CELL_SIZE + 1) * TOTAL_COLUMNS), y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)));
@@ -111,10 +105,7 @@ public class MyPanel extends JPanel {
 		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
-			return x;
-		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 2) {   //Outside the rest of the grid
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}
 		return x;
@@ -137,10 +128,7 @@ public class MyPanel extends JPanel {
 		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
-			return y;
-		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 2) {   //Outside the rest of the grid
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}
 		return y;
