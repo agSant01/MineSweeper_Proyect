@@ -5,7 +5,7 @@ public class Main {
 		JFrame myFrame = new JFrame("Color Grid");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(400, 150);
-		myFrame.setSize(355, 355);
+		myFrame.setSize(330, 330);
 
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
