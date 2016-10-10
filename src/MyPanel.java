@@ -175,11 +175,6 @@ public class MyPanel extends JPanel {
 				}
 			}
 		}
-		mineFound=true;
+		Main.flag=true;
 	}
-	
-	public boolean getMineFound(){
-		return mineFound;
-	}
-	
 }

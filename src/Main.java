@@ -3,6 +3,7 @@ import javax.swing.JOptionPane;
 
 
 public class Main {
+	public static boolean flag = false;
 	public static void main(String[] args) throws InterruptedException {
 		JFrame myFrame = new JFrame("Color Grid");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -17,10 +18,8 @@ public class Main {
 		
 		myFrame.setVisible(true);
 		
-		boolean flag = false;
 		while(!flag){
 			//Loop until a mine is Found
-			flag = myPanel.getMineFound();
 			Thread.sleep(1);
 		}
 		JOptionPane.showMessageDialog(null , "Mine Exploded!");
