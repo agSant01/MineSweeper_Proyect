@@ -21,8 +21,11 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int Mines[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public boolean mineFound = false;
+	public boolean firstPlay;
 		
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
+		
+		firstPlay = true;
 		
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -54,26 +57,8 @@ public class MyPanel extends JPanel {
 				
 			}
 		}
-		
-		//TODO: Remove this!!! Before PUSH
-		int c1 =0 ;
-		int c0 = 0;
-		for(int i = 0; i < TOTAL_COLUMNS; i++){
-			for (int j = 0; j < TOTAL_ROWS; j++){
-				System.out.print(Mines[i][j] + " ");
-				if (Mines[i][j] == 1){
-					c1++;
-				}else{
-					c0++;
-				}
-			}
-			System.out.println();
-		}
-		System.out.println("1="+c1 + " 0="+c0);
 	}
 	
-	
-		
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -154,6 +139,32 @@ public class MyPanel extends JPanel {
 			return -1;
 		}
 		return y;
+	}
+	
+	public void MineCounter(int mouseDownX, int mouseDownY){
+		int mineCnter = 0;
+		for (int i = mouseDownX-1; i <= mouseDownX+1; i++){
+			for (int j = mouseDownY-1; j <= mouseDownY+1;j++){
+				if (i < 0 || i > TOTAL_COLUMNS-1 || j < 0 || j > TOTAL_ROWS-1 ){
+					//Do nothing out of colorArray bounds
+				}else if (Mines[i][j] == 1){
+					mineCnter++;
+				}
+			}
+		}
+		if (mineCnter == 0){
+			for (int i = mouseDownX-1; i <= mouseDownX+1; i++){
+				for (int j = mouseDownY-1; j <= mouseDownY+1;j++){
+					if (i < 0 || i > TOTAL_COLUMNS-1 || j < 0 || j > TOTAL_ROWS-1 ){
+						//Do nothing out of colorArray bounds
+					}else if (Mines[i][j] == 0){
+						colorArray[i][j] = Color.LIGHT_GRAY;
+					}
+				}
+			}
+		}
+		repaint();
+		return;
 	}
 	
 	public void MineFound() {

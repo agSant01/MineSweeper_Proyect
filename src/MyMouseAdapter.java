@@ -100,16 +100,23 @@ public class MyMouseAdapter extends MouseAdapter {
 				//Do nothing
 			} else if ((myPanel.mouseDownGridX == gridX) && (myPanel.mouseDownGridY == gridY)) {
 				//Released the mouse button on the same cell where it was pressed
+				if(myPanel.firstPlay){
+					//For a better user experience: If first selected cell is set
+					//as a mine change it to a normal cell
+					myPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = 0;
+					myPanel.firstPlay = false;
+				}
 				if (myPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 1){
 					myPanel.MineFound();
 				}else{
 					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
+					myPanel.MineCounter(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
 				}
 			}
 			myPanel.repaint();
 			break;
 		
-		case 3:
+		case 3: //Enables right click to flag a cell
 			c = e.getComponent();
 
 			while (!(c instanceof JFrame)) {
@@ -144,10 +151,14 @@ public class MyMouseAdapter extends MouseAdapter {
 				//Is releasing outside
 				//Do nothing
 			} else if ((myPanel.mouseDownGridX == gridX) && (myPanel.mouseDownGridY == gridY)){
-				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
+				//Can't flag a previously uncovered cell 
+				if (!(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.LIGHT_GRAY)){
+					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
+				}
 			}	
 			myPanel.repaint();
 			break;
+			
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing
 			break;
