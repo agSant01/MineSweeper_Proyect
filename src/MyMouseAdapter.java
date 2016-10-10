@@ -7,6 +7,9 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
+	
+	public MyPanel myPanel;
+	
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -18,7 +21,7 @@ public class MyMouseAdapter extends MouseAdapter {
 				}
 			}
 			JFrame myFrame = (JFrame) c;
-			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+			myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
 			Insets myInsets = myFrame.getInsets();
 			int x1 = myInsets.left;
 			int y1 = myInsets.top;
@@ -59,8 +62,6 @@ public class MyMouseAdapter extends MouseAdapter {
 		}
 	}
 
-	
-	
 	public void mouseReleased(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -99,21 +100,15 @@ public class MyMouseAdapter extends MouseAdapter {
 				//Do nothing
 			} else if ((myPanel.mouseDownGridX == gridX) && (myPanel.mouseDownGridY == gridY)) {
 				//Released the mouse button on the same cell where it was pressed
-				if (myPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 0){
-					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.BLACK;
+				if (myPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 1){
+					myPanel.MineFound();
 				}else{
-					int mines = MineCounter(myPanel.mouseDownGridX, myPanel.mouseDownGridY, myPanel);
-					
-					System.out.println(mines);
-					Color newColor = Color.LIGHT_GRAY;
-					
-					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-					myPanel.repaint();
+					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
 				}
 			}
-
 			myPanel.repaint();
 			break;
+		
 		case 3:
 			c = e.getComponent();
 
@@ -158,37 +153,4 @@ public class MyMouseAdapter extends MouseAdapter {
 			break;
 		}
 	}
-
-	public int MineCounter(int mouseDownX, int mouseDownY, MyPanel myPanel){
-		int mineCounter = 0;
-		for (int i = mouseDownY-1; i <= mouseDownY+1; i++){
-			for (int j = mouseDownX-1; j <= mouseDownX+1;j++){
-				try {
-					if (myPanel.Mines[i][j] == 0){
-						mineCounter++;
-					}
-				} catch (Exception e){}
-			}
-		}
-		return mineCounter; 
-	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

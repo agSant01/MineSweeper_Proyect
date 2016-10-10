@@ -11,15 +11,16 @@ public class MyPanel extends JPanel {
 	private static final int GRID_X = 25;
 	private static final int GRID_Y = 25;
 	private static final int INNER_CELL_SIZE = 29;
-	private static final int TOTAL_COLUMNS = 9;
-	private static final int TOTAL_ROWS = 9;   
-
+	
+	public final int TOTAL_COLUMNS = 9;
+	public final int TOTAL_ROWS = 9;   
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int Mines[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public boolean mineFound = false;
 		
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		
@@ -45,12 +46,33 @@ public class MyPanel extends JPanel {
 		Random rn = new Random();
 
 		for(int i = 0; i < TOTAL_COLUMNS; i++){
-			for (int j = 0; j < TOTAL_COLUMNS; j++){			
-				int TF = rn.nextInt(2);
-				Mines[i][j] = TF;
+			for (int j = 0; j < TOTAL_COLUMNS; j++){
+				if (rn.nextBoolean()){
+					int TF = rn.nextInt(1 + 1);
+					Mines[i][j] = TF;
+				}
+				
 			}
 		}
+		
+		//TODO: Remove this!!! Before PUSH
+		int c1 =0 ;
+		int c0 = 0;
+		for(int i = 0; i < TOTAL_COLUMNS; i++){
+			for (int j = 0; j < TOTAL_ROWS; j++){
+				System.out.print(Mines[i][j] + " ");
+				if (Mines[i][j] == 1){
+					c1++;
+				}else{
+					c0++;
+				}
+			}
+			System.out.println();
+		}
+		System.out.println("1="+c1 + " 0="+c0);
 	}
+	
+	
 		
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -132,6 +154,21 @@ public class MyPanel extends JPanel {
 			return -1;
 		}
 		return y;
+	}
+	
+	public void MineFound() {
+		for (int i = 0; i < TOTAL_COLUMNS; i++){
+			for (int j = 0; j < TOTAL_ROWS; j++){
+				if (Mines[i][j] == 1){
+					colorArray[i][j] = Color.BLACK;
+				}
+			}
+		}
+		mineFound=true;
+	}
+	
+	public boolean getMineFound(){
+		return mineFound;
 	}
 	
 }

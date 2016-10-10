@@ -1,7 +1,9 @@
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		JFrame myFrame = new JFrame("Color Grid");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(400, 150);
@@ -14,5 +16,14 @@ public class Main {
 		myFrame.addMouseListener(myMouseAdapter);
 		
 		myFrame.setVisible(true);
+		
+		boolean flag = false;
+		while(!flag){
+			//Loop until a mine is Found
+			flag = myPanel.getMineFound();
+			Thread.sleep(1);
+		}
+		JOptionPane.showMessageDialog(null , "Mine Exploded!");
+		System.exit(0);
 	}
 }
