@@ -11,11 +11,11 @@ public class MyPanel extends JPanel {
 	private static final int GRID_X = 25;
 	private static final int GRID_Y = 25;
 	private static final int INNER_CELL_SIZE = 29;	
+	
 	public static final int TOTAL_COLUMNS = 9;
 	public static final int TOTAL_ROWS = 9;  
 	public static int Mines[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public static Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
-	
 	
 	public int x = -1;
 	public int y = -1;
