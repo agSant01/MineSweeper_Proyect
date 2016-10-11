@@ -10,16 +10,18 @@ public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
 	private static final int GRID_X = 25;
 	private static final int GRID_Y = 25;
-	private static final int INNER_CELL_SIZE = 29;
+	private static final int INNER_CELL_SIZE = 29;	
+	public static final int TOTAL_COLUMNS = 9;
+	public static final int TOTAL_ROWS = 9;  
+	public static int Mines[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public static Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	
-	public final int TOTAL_COLUMNS = 9;
-	public final int TOTAL_ROWS = 9;   
+	
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
-	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
-	public int Mines[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	
 	public boolean mineFound = false;
 	public boolean firstPlay;
 		
@@ -139,42 +141,5 @@ public class MyPanel extends JPanel {
 			return -1;
 		}
 		return y;
-	}
-	
-	public void MineCounter(int mouseDownX, int mouseDownY){
-		int mineCnter = 0;
-		for (int i = mouseDownX-1; i <= mouseDownX+1; i++){
-			for (int j = mouseDownY-1; j <= mouseDownY+1;j++){
-				if (i < 0 || i > TOTAL_COLUMNS-1 || j < 0 || j > TOTAL_ROWS-1 ){
-					//Do nothing out of colorArray bounds
-				}else if (Mines[i][j] == 1){
-					mineCnter++;
-				}
-			}
-		}
-		if (mineCnter == 0){
-			for (int i = mouseDownX-1; i <= mouseDownX+1; i++){
-				for (int j = mouseDownY-1; j <= mouseDownY+1;j++){
-					if (i < 0 || i > TOTAL_COLUMNS-1 || j < 0 || j > TOTAL_ROWS-1 ){
-						//Do nothing out of colorArray bounds
-					}else if (Mines[i][j] == 0){
-						colorArray[i][j] = Color.LIGHT_GRAY;
-					}
-				}
-			}
-		}
-		repaint();
-		return;
-	}
-	
-	public void MineFound() {
-		for (int i = 0; i < TOTAL_COLUMNS; i++){
-			for (int j = 0; j < TOTAL_ROWS; j++){
-				if (Mines[i][j] == 1){
-					colorArray[i][j] = Color.BLACK;
-				}
-			}
-		}
-		Main.flag=true;
 	}
 }

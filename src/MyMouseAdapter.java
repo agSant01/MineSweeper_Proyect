@@ -103,14 +103,15 @@ public class MyMouseAdapter extends MouseAdapter {
 				if(myPanel.firstPlay){
 					//For a better user experience: If first selected cell is set
 					//as a mine change it to a normal cell
-					myPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = 0;
+					MyPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = 0;
 					myPanel.firstPlay = false;
 				}
-				if (myPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 1){
-					myPanel.MineFound();
+				if (MyPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 1){
+					CellAdapter.MineFound();
+					
 				}else{
-					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
-					myPanel.MineCounter(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
+					MyPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
+					CellAdapter.MineCounter(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
 				}
 			}
 			myPanel.repaint();
@@ -152,8 +153,8 @@ public class MyMouseAdapter extends MouseAdapter {
 				//Do nothing
 			} else if ((myPanel.mouseDownGridX == gridX) && (myPanel.mouseDownGridY == gridY)){
 				//Can't flag a previously uncovered cell 
-				if (!(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.LIGHT_GRAY)){
-					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
+				if (!(MyPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.LIGHT_GRAY)){
+					MyPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
 				}
 			}	
 			myPanel.repaint();
