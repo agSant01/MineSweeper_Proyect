@@ -18,11 +18,17 @@ public class Main {
 		
 		myFrame.setVisible(true);
 		
-		while(!flag){
-			//Loop until a mine is Found
+		while(!flag && !CellAdapter.allUncover()){
+			//Loop until a mine is Found		
 			Thread.sleep(1);
 		}
-		JOptionPane.showMessageDialog(null , "Mine Exploded!");
+		
+		if(flag){
+			JOptionPane.showMessageDialog(null , "Mine Exploded!");	
+		} else{
+			JOptionPane.showMessageDialog(null , "Congratulations!\nAll cells wihtout mines uncovered.");	
+		}
+		
 		System.exit(0);
 	}
 }

@@ -23,11 +23,11 @@ public class MyPanel extends JPanel {
 	public int mouseDownGridY = 0;
 	
 	public boolean mineFound = false;
-	public boolean firstPlay;
+	public boolean firstPlay; //Used to know when is the first play
 		
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		
-		firstPlay = true;
+		firstPlay = true; //Initialize the fistPlay
 		
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -46,7 +46,7 @@ public class MyPanel extends JPanel {
 				colorArray[x][y] = Color.WHITE;
 			}
 		}
-	
+
 		//Determines which cells will have the mines
 		Random rn = new Random();
 
@@ -56,11 +56,11 @@ public class MyPanel extends JPanel {
 					int TF = rn.nextInt(1 + 1);
 					Mines[i][j] = TF;
 				}
-				
+
 			}
 		}
 	}
-	
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -95,8 +95,67 @@ public class MyPanel extends JPanel {
 				g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 			}
 		}
+
+		int l = 0;
+		int m = 0;
+		int mineCounter = 0;
+		for (int x = 0; x < TOTAL_COLUMNS; x++){
+			for (int y = 0; y < TOTAL_ROWS; y++){
+				mineCounter = 0;
+				if (Mines[x][y] == 1){
+					//Don't check: cell is a mine
+				}else{
+					for (int i = x-1; i <= x+1; i++){
+						for (int j = y-1; j <= y+1; j++){
+							if ( i < 0 || i > TOTAL_COLUMNS-1 || j < 0 || j >TOTAL_ROWS-1){
+								//Do nothing: out of colorArray bounds
+							} else if (Mines[i][j] == 1){
+								mineCounter++;
+							}
+						}
+					}
+					l = x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 12;
+					m =  y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 20;
+					g.setColor(Color.WHITE);
+					switch (mineCounter) {
+					case 1:
+						g.drawString("1", l, m);
+						break;
+
+					case 2:
+						g.drawString("2", l, m);
+						break;
+
+					case 3:
+						g.drawString("3", l, m);
+						break;
+
+					case 4:
+						g.drawString("4",l, m);
+						break;
+
+					case 5:
+						g.drawString("5",l, m);
+						break;
+
+					case 6:
+						g.drawString("6", l, m);
+						break;
+
+					case 7:
+						g.drawString("7", l, m);
+						break;
+
+					default:
+						break;
+					}
+				}
+			}
+		}
+
+
 	}
-	
+
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;

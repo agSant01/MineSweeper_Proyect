@@ -107,8 +107,8 @@ public class MyMouseAdapter extends MouseAdapter {
 					myPanel.firstPlay = false;
 				}
 				if (MyPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 1){
+					//Cell is a mine
 					CellAdapter.MineFound();
-					
 				}else{
 					MyPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
 					CellAdapter.MineCounter(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
