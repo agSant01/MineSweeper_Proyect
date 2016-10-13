@@ -1,4 +1,5 @@
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.util.Random;
@@ -55,11 +56,24 @@ public class MyPanel extends JPanel {
 				if (rn.nextBoolean()){
 					int TF = rn.nextInt(1 + 1);
 					Mines[i][j] = TF;
-				}
-				
+				}	
+			}
+		}
+		
+	}
+	//Sets Cell numbers
+	public void PaintCases(Graphics g){
+		Random cases = new Random();
+		
+		for(int i = 0; i < TOTAL_COLUMNS; i++){
+			for(int j = 0; j < TOTAL_COLUMNS; j++){
+				int p = cases.nextInt(4) + 1;
+				g.drawString(""+ p,i , j);
 			}
 		}
 	}
+	// SE SUPONE QUE APARESCAN LOS NUMEROS
+		
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -82,9 +96,11 @@ public class MyPanel extends JPanel {
 		g.setColor(Color.BLACK);
 		for (int y = 0; y <= TOTAL_ROWS; y++) {
 			g.drawLine(x1 + GRID_X, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)), x1 + GRID_X + ((INNER_CELL_SIZE + 1) * TOTAL_COLUMNS), y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)));
+			
 		}
 		for (int x = 0; x <= TOTAL_COLUMNS; x++) {
 			g.drawLine(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS)));
+
 		}
 
 		//Paint cell colors
@@ -96,6 +112,7 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
+	
 	
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();

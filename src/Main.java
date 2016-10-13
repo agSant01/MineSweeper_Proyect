@@ -1,8 +1,12 @@
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 
 public class Main {
+	
+	static JLabel a,b,c,d;
 	public static boolean flag = false;
 	public static void main(String[] args) throws InterruptedException {
 		JFrame myFrame = new JFrame("Color Grid");
@@ -17,6 +21,12 @@ public class Main {
 		myFrame.addMouseListener(myMouseAdapter);
 		
 		myFrame.setVisible(true);
+		myFrame.setResizable(false);
+		
+		a = new JLabel("MineSweeper");
+		myPanel.add(a);
+		
+
 		
 		while(!flag){
 			//Loop until a mine is Found
