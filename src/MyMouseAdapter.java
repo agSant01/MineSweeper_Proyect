@@ -104,7 +104,7 @@ public class MyMouseAdapter extends MouseAdapter {
 					//For a better user experience: If first selected cell is set
 					//as a mine change it to a normal cell
 					MyPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = 0;
-					myPanel.firstPlay = false;
+					myPanel.firstPlay =  false;
 				}
 				if (MyPanel.Mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 1){
 					//Cell is a mine

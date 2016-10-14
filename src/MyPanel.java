@@ -6,33 +6,33 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
-	
+
 	private static final long serialVersionUID = 3426940946811133635L;
 	private static final int GRID_X = 25;
 	private static final int GRID_Y = 25;
 	private static final int INNER_CELL_SIZE = 29;	
-	
+
 	public static final int TOTAL_COLUMNS = 9;
 	public static final int TOTAL_ROWS = 9;  
 	public static int Mines[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public static Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
-	
+
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
-	
+
 	public boolean mineFound = false;
 	public boolean firstPlay; //Used to know when is the first play
-		
-	public MyPanel() {   //This is the constructor... this code runs first to initialize
-		
+
+	public MyPanel() {   //This is the constructor...this code runs first to initialize
+
 		firstPlay = true; //Initialize the fistPlay
-		
+
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
 		}
-		
+
 		if (TOTAL_COLUMNS + (new Random()).nextInt(1) < 2) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("TOTAL_COLUMNS must be at least 2!");
 		}
@@ -40,7 +40,7 @@ public class MyPanel extends JPanel {
 		if (TOTAL_ROWS + (new Random()).nextInt(1) < 3) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("TOTAL_ROWS must be at least 3!");
 		}
-		
+
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				colorArray[x][y] = Color.WHITE;
@@ -49,7 +49,6 @@ public class MyPanel extends JPanel {
 
 		//Determines which cells will have the mines
 		Random rn = new Random();
-
 		for(int i = 0; i < TOTAL_COLUMNS; i++){
 			for (int j = 0; j < TOTAL_COLUMNS; j++){
 				if (rn.nextBoolean()){
@@ -95,16 +94,14 @@ public class MyPanel extends JPanel {
 				g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 			}
 		}
-
-		int l = 0;
-		int m = 0;
-		int mineCounter = 0;
+		//Draw numbers from the beginning of the program
+		int l;
+		int m;
+		int mineCounter;
 		for (int x = 0; x < TOTAL_COLUMNS; x++){
 			for (int y = 0; y < TOTAL_ROWS; y++){
 				mineCounter = 0;
-				if (Mines[x][y] == 1){
-					//Don't check: cell is a mine
-				}else{
+				if (Mines[x][y] != 1){ //Cell is not a mine
 					for (int i = x-1; i <= x+1; i++){
 						for (int j = y-1; j <= y+1; j++){
 							if ( i < 0 || i > TOTAL_COLUMNS-1 || j < 0 || j >TOTAL_ROWS-1){
@@ -114,46 +111,41 @@ public class MyPanel extends JPanel {
 							}
 						}
 					}
+					
+					//Determinate the coordinates of the numbers
 					l = x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 12;
 					m =  y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 20;
 					g.setColor(Color.WHITE);
+					//Switch Case to know which number print depending
+					//on the number of mines are adjacent to the target cell
 					switch (mineCounter) {
 					case 1:
 						g.drawString("1", l, m);
 						break;
-
 					case 2:
 						g.drawString("2", l, m);
 						break;
-
 					case 3:
 						g.drawString("3", l, m);
 						break;
-
 					case 4:
 						g.drawString("4",l, m);
 						break;
-
 					case 5:
 						g.drawString("5",l, m);
 						break;
-
 					case 6:
 						g.drawString("6", l, m);
 						break;
-
 					case 7:
 						g.drawString("7", l, m);
 						break;
-
 					default:
 						break;
 					}
 				}
 			}
 		}
-
-
 	}
 
 	public int getGridX(int x, int y) {
@@ -178,7 +170,7 @@ public class MyPanel extends JPanel {
 		}
 		return x;
 	}
-	
+
 	public int getGridY(int x, int y) {
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
